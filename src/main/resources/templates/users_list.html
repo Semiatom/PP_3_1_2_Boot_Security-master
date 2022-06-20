@@ -13,6 +13,10 @@
         <th>Surname</th>
         <th>Age</th>
         <th>Action</th>
+        <th>Action</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Roles</th>
     </tr>
 
     <tr th:each="u : ${allUsers}">
@@ -21,6 +25,9 @@
         <td th:text="${u.age}">Age</td>
         <td><a th:href="@{'/users/edit/' + ${u.id}}">Edit</a></td>
         <td><a th:href="@{'/users/delete/' + ${u.id}}">Delete</a></td>
+        <td th:text="${u.username}">Username</td>
+        <td th:text="${u.password}">Password</td>
+        <td th:text="${u.roles}">Roles</td>
     </tr>
 
     <br><br>

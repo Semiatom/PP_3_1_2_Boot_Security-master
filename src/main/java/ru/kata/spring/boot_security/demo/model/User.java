@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -26,5 +27,19 @@ public class User {
 
     @Column(name = "age")
     private int age;
+
+    @Size(min = 1, max = 100, message = "Invalid length")
+    @Column(name = "username")
+    private String username;
+
+    @Size(min = 1, max = 100, message = "Invalid length")
+    @Column(name = "password")
+    private String password;
+
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 }
 

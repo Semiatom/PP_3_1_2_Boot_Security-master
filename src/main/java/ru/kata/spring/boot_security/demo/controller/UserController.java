@@ -7,7 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.validation.Valid;
 
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit/{id}")
-    public String UpdateUser(@PathVariable("id") long id, @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String UpdateUser(@PathVariable("id") int id, @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return "user_create";
         }
