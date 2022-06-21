@@ -12,10 +12,9 @@
         <th>Name</th>
         <th>Surname</th>
         <th>Age</th>
-        <th>Action</th>
-        <th>Action</th>
+        <th>Edit</th>
+        <th>Delete</th>
         <th>Username</th>
-        <th>Password</th>
         <th>Roles</th>
     </tr>
 
@@ -23,18 +22,19 @@
         <td th:text="${u.name}">Name</td>
         <td th:text="${u.surname}">Surname</td>
         <td th:text="${u.age}">Age</td>
-        <td><a th:href="@{'/users/edit/' + ${u.id}}">Edit</a></td>
-        <td><a th:href="@{'/users/delete/' + ${u.id}}">Delete</a></td>
+        <td><a th:href="@{'/admin/edit/' + ${u.id}}">Edit</a></td>
+        <td><a th:href="@{'/admin/delete/' + ${u.id}}">Delete</a></td>
         <td th:text="${u.username}">Username</td>
-        <td th:text="${u.password}">Password</td>
         <td th:text="${u.roles}">Roles</td>
     </tr>
 
     <br><br>
 </table>
 
-<a href="/users/add">Create new user</a>
-
+<a href="/admin/add">Create new user</a>
+<br>
+<br>
+<a href="#" th:href="@{/logout}">Log Out</a>
 
 </body>
 

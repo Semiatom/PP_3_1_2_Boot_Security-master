@@ -1,8 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import lombok.Data;
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
 
 @Entity
