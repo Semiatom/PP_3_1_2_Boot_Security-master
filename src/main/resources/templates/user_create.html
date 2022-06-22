@@ -8,7 +8,7 @@
 <body>
 <h1> New User</h1>
 
-<form th:method="POST" th:action="@{/users/add}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/add}" th:object="${user}">
     <label for="name"> Name</label>
     <input type="text" id="name" name="name"/>
     <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
@@ -28,6 +28,13 @@
     <input type="text" id="password" name="password"/>
     <div th:if="${#fields.hasErrors('password')}" th:errors="*{surname}">Password error</div>
     <br>
+    <label for="roles">Roles</label>
+    <input type="checkbox" name="roles" id="roles"
+           th:each="role : ${allRoles}"
+           th:text="${role.name}"
+           th:value="${role.id}"
+           th:field="*{roles}"
+    />
     <br>
     <input type="submit" value="Create user"/>
 </form>

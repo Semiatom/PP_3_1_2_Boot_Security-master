@@ -7,7 +7,7 @@
 <body>
 <h1> Edit User</h1>
 
-<form action="#" method="POST" th:action="@{'/users/edit/' + ${user.id}}" th:object="${user}">
+<form action="#" method="POST" th:action="@{'/admin/edit/' + ${user.id}}" th:object="${user}">
     <label for="name"> Name</label>
     <input type="text" th:field="*{name}" id="name"/>
     <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
@@ -23,6 +23,14 @@
     <input type="text" th:field="*{username}" id="username"/>
     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
     <br>
+    <input th:field="*{password}" id="password" type="hidden"/>
+    <label for="roles">Roles</label>
+    <input type="checkbox" name="roles" id="roles"
+           th:each="role : ${allRoles}"
+           th:text="${role.name}"
+           th:value="${role.id}"
+           th:field="*{roles}"
+    />
     <br>
     <input type="submit" value="Edit user"/>
 </form>
