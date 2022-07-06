@@ -18,6 +18,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return name;
+        return name.replace("ROLE_","");
     }
 }
