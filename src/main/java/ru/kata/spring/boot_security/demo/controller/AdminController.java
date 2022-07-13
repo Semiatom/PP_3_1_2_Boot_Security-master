@@ -79,7 +79,10 @@ public class AdminController {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
-
-
+    @GetMapping("sdq/")
+    @ResponseBody
+    public User takeOne(Integer id) {
+        return userService.getUserById(id);
+    }
 
 }

@@ -1,4 +1,7 @@
 
-var text = $('.post-tags').html();
-text = text.replace(/[\[\]]+/g, '');
-$('.post-tags').html(text);
+$(document).ready(function(){
+        $('.table .editBtn'). click(function () {
+           $('.myForm #editModal').modal();
+        });
+
+});

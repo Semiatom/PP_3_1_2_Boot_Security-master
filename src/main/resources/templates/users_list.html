@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+
+
 </head>
 <body>
 
@@ -84,6 +86,8 @@
                             <td th:text="${u.username}">Username</td>
                             <td><a th:each="role : ${u.roles}" th:text="${role}+ ' '"></a></td>
                             <td><a th:href="@{'/admin/edit/' + ${u.id}}" class="btn btn-info"> Edit</a></td>
+<!--                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button></td>-->
+<!--                            <td><a th:href="@{findOne/(id=${u.id})}" class="btn btn-primary editBtn" >Edit</a> </td>-->
                             <td><a th:href="@{'/admin/delete/' + ${u.id}}" class="btn btn-danger">Delete</a></td>
                         </tr>
                         </tbody>
@@ -164,9 +168,106 @@
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-                crossorigin="anonymous"></script>
+
+
+
+<div class="myForm">
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit user</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-6 offset-md-3">
+                        <form>
+                            <div class="mb-3 text-center h6">
+                                <label for="recipient-name" class="col-form-label">ID</label>
+                                <input type="text" class="form-control" id="recipient-name" name ="Id">
+                            </div>
+
+                            <div class="mb-3 text-center h6">
+                                <label for="editFirst-name" class="col-form-label">First name</label>
+                                <input type="text" class="form-control" id="editFirst-name" name ="name">
+                            </div>
+
+                            <div class="mb-3 text-center h6">
+                                <label for="editLast-name" class="col-form-label">Last name</label>
+                                <input type="text" class="form-control" id="editLast-name" name ="surname">
+                            </div>
+
+                            <div class="mb-3 text-center h6">
+                                <label for="editAge" class="col-form-label">Age</label>
+                                <input type="text" class="form-control" id="editAge" name ="age">
+                            </div>
+
+                            <div class="mb-3 text-center h6">
+                                <label for="editAge" class="col-form-label">Username</label>
+                                <input type="text" class="form-control" id="editUsername" name ="username">
+                            </div>
+
+                            <div class="mb-3 text-center h6">
+                                <label for="editPassword" class="col-form-label">Password</label>
+                                <input type="text" class="form-control" id="editPassword" name ="password">
+                            </div>
+
+                            <div class="mb-3 text-center h6">
+                                <label for="editRole" class="col-form-label">Role</label>
+                                <select class="form-select" multiple aria-label="multiple select example" size="2" name="roles" id="editRole">
+                                    <option th:each="role : ${allRoles}"
+                                            th:value="${role.id}"
+                                            th:text="${role.name.replace('ROLE_','')}"/>
+                                </select>
+                            </div>
+                        </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        <div
+        <button type="button" class="btn btn-warning col-1 ">clik</button>
+        </div>
+
+
+
+
+    <p>If you click on me, I will disappear.</p>
+    <p>Click me away!</p>
+    <p>Click me too!</p>
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script type="text/javascript" th:src="@{main.js}" src="../static/main.js" > </script>
+
+    <script>
+        $(document).ready(function(){
+            $("p").click(function(){
+                $(this).hide();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $(".table .editBtn").click(function(){
+                // $(this).hide();
+                $('.myForm #editModal').ariaModal()
+            });
+        });
+    </script>
+
+
+
 
 
 </body>
