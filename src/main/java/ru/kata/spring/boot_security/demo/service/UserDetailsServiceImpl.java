@@ -26,27 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-//    public List<User> getAllUsers() {
-//        return userRepository.findAll();
-//    }
-//
-//    public User getUserById(int id) {
-//        return userRepository.getOne(id);
-//    }
-//
-//    public void saveUser(User user) {
-//        userRepository.save(user);
-//    }
-//
-//    public void deleteUser(int id) {
-//        userRepository.deleteById(id);
-//    }
-//
-//    public User findByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//
-//    }
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

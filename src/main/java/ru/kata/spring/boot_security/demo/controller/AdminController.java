@@ -17,6 +17,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -79,10 +80,10 @@ public class AdminController {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
-    @GetMapping("sdq/")
+    @GetMapping("/getOneByUsername")
     @ResponseBody
-    public User takeOne(Integer id) {
-        return userService.getUserById(id);
+    public User getOneByUsername(String username) {
+        return userService.findByUsername(username);
     }
 
 }
