@@ -66,11 +66,13 @@ public class AdminController {
         return "user_edit";
     }
 
-    @PostMapping(value = "/edit/{id}")
-    public String UpdateUser(@PathVariable("id") int id, @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    @PostMapping(value = "/edit")
+    public String UpdateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return "user_create";
         }
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
         return "redirect:/admin";
     }
