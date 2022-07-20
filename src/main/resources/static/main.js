@@ -4,7 +4,7 @@ $(document).ready(function(){
 
             evt.preventDefault();
              var href= $(this).attr('href');
-            $.get(href,function(user, status){
+            $.get(href,function(user){
                 $('#editId').val(user.id)
                 $('#editFirstName').val(user.name)
                 $('#editLasName').val(user.surname)
@@ -15,6 +15,21 @@ $(document).ready(function(){
            $('.myFormUpdate #editModal').modal();
 
         });
+
+    $('.table .deleteBtn'). click(function (evt) {
+        evt.preventDefault();
+        $('.myFormDelete #deleteModal').modal();
+
+        var href= $(this).attr('href');
+        $.get(href,function(user){
+            $('#deleteId').val(user.id)
+            $('#deleteFirstName').val(user.name)
+            $('#deleteLasName').val(user.surname)
+            $('#deleteAge').val(user.age)
+            $('#deleteUsername').val(user.username)
+        });
+    });
+
 
 });
 

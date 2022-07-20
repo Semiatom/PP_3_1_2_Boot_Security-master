@@ -92,8 +92,9 @@
                             <td th:text="${u.username}">Username</td>
                             <td><a th:each="role : ${u.roles}" th:text="${role}+ ' '"></a></td>
                             <td><a th:href="@{/admin/getOneByUsername/(username=${u.username})}"  class="btn btn-primary editBtn" >Edit</a> </td>
-                            <td><a th:href="@{/admin/getOneByUsername/(username=${u.username})}"  class="btn btn-danger deleteBtn" >Delete</a> </td>
+                            <td><a th:href="@{/admin/getOneByUsername/(username=${u.username})}"   class="btn btn-danger deleteBtn" >Delete</a> </td>
                             <td><a th:href="@{'/admin/delete/' + ${u.id}}" class="btn btn-danger">Delete</a></td>
+<!--                            th:attrappend="id=${user.id}"-->
                         </tr>
                         </tbody>
 
@@ -238,8 +239,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="col-md-6 offset-md-3">
-                                <form th:action="@{/admin/delete/{id}" method="POST">
-
+                                <form th:action="@{/admin/delete}" th:method="get" th:object="${user}">
                                     <div class="mb-3 text-center h6">
                                         <label for="editId" class="col-form-label">ID</label>
                                         <input type="text" class="form-control" id="deleteId" name ="Id" readonly="readonly">
@@ -265,10 +265,6 @@
                                         <input type="text" class="form-control" id="deleteUsername" name ="username" readonly="readonly">
                                     </div>
 
-                                    <div class="mb-3 text-center h6">
-                                        <label for="editPassword" class="col-form-label">Password</label>
-                                        <input type="text" class="form-control" id="deletePassword" name ="password" readonly="readonly">
-                                    </div>
 
                                     <div class="mb-3 text-center h6">
                                         <label for="deleteRole" class="col-form-label">Role</label>
@@ -280,11 +276,11 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Edit</button>
+                                        <button type="submit" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                        <a th:href="@{'/admin/delete/'+ ${user.getId()}}" class="btn btn-danger">Delete2 </a>
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>
