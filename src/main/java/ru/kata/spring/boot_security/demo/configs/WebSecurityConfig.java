@@ -28,9 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers( "/**").permitAll()
-//                .antMatchers( "/admin").hasRole("ADMIN")
-//                .antMatchers( "/user").hasAnyRole("ADMIN", "USER")
+                .antMatchers( "/index").permitAll()
+                .antMatchers( "/admin").hasRole("ADMIN")
+                .antMatchers( "/user").hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin().successHandler(successUserHandler)
                 .permitAll()
@@ -39,21 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login");
     }
 
-    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
-    // аутентификация DAO authentication
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
