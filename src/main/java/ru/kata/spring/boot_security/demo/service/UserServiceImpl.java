@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getUserById(int id) {
-        return userRepository.getOne(id);
+    public User getUserById(Integer id) {
+        return userRepository.getById(id);
     }
     @Transactional
     public void saveUser(User user) {
