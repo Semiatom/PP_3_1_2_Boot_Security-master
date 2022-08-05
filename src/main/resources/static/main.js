@@ -4,7 +4,10 @@ $(document).ready(function(){
 
             evt.preventDefault();
              var href= $(this).attr('href');
-            $.get(href,function(user){
+            $.get(href,function(restUser){
+                fetch(restUser)
+                    .then(response => response.json())
+                    .then()
                 $('#editId').val(user.id)
                 $('#editFirstName').val(user.name)
                 $('#editLasName').val(user.surname)
@@ -34,3 +37,18 @@ $(document).ready(function(){
 });
 
 
+// $('.table .editBtn'). click(function (evt) {
+//
+//     evt.preventDefault();
+//     var href= $(this).attr('href');
+//     $.get(href,function(user){
+//         $('#editId').val(user.id)
+//         $('#editFirstName').val(user.name)
+//         $('#editLasName').val(user.surname)
+//         $('#editAge').val(user.age)
+//         $('#editUsername').val(user.username)
+//     });
+//
+//     $('.myFormUpdate #editModal').modal();
+//
+// });

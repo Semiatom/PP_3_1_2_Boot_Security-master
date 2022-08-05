@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Users</title>
     <meta charset="utf-8">
@@ -9,16 +9,126 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-1"></div>
+        <div class=" col-1 border border-2 border-dark bg-primary text-danger"> Test div</div>
+
+    </div>
+</div>
+
+
+<table class="table table-striped test-point">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Username</th>
+        <th>Roles</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="inputPointUserList">
+    </tbody>
+</table>
+
+
+
+<input type="text" id="myName">
+<input type="text" id="mySurname">
+<input type="text" id="myAge">
+<input type="text" id="myUsername">
+<input type="text" id="myPassword">
+
+<div>Click the "Try it" button to get the text in the text field.</div>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+
 
 <script>
-    fetch(`http://localhost:8080/api/users`)
-        .then(res=> console.log(res.json()))
-        .then(data=> console.log(data))
+
+    const userList = document.getElementById("inputPointUserList");
+    const testPoint = document.querySelector('.test-point')
+    const url = "http://localhost:8080/api/users"
+    let htmlUserList = ``;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(user => {
+                htmlUserList += `<tr> <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.surname}</td>
+                            <td>${user.age}</td>
+                            <td>${user.username}</td>
+                            <td>${user.roles.map(e =>" " +  e.name.substring(5))} </td>
+                            <td>
+                                <a hrref ="@{/api/users/(${user.id})}"   class="btn btn-primary">Edit</a>
+                            </td>
+                            <td>
+                                <button data-target="${'#deleteModal' + user.id}" type="button" class="btn btn-danger"
+                                        data-toggle="modal">Delete
+                                </button>
+                            </td></tr>`;
+            });
+            userList.insertAdjacentHTML("beforebegin", htmlUserList);
+        })
+
+
+    const butt = document.getElementById("butt")
+
+    butt.onclick = function() {
+
+
+        let val = document.getElementById('elem1').value;
+        console.log(val)
+    };
+
+
+    function myFunction() {
+        let firstNameAdd = document.getElementById("myName").value;
+        let lastnameAdd = document.getElementById("mySurname").value;
+        let ageAdd = document.getElementById("myAge").value;
+        let usernameAdd = document.getElementById("myUsername").value;
+        let passwordAdd = document.getElementById("myUsername").value;
+        document.getElementById("demo").innerHTML = firstNameAdd + lastnameAdd + ageAdd ;
+
+        fetch(url, {
+            method: "post",
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                "name": firstNameAdd,
+                "surname": lastnameAdd,
+                "age": ageAdd,
+                "username": usernameAdd,
+                "password": passwordAdd,
+                // "roles": [{roleAdd}]
+
+            })
+        })
+            .then(response => console.log(response))
+
+
+    }
+
+
 
 
 </script>
 
+
+
+
+
+
 </body>
+
+

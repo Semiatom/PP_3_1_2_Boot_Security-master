@@ -40,7 +40,7 @@
                 <li class="nav-item ">
                     <a class="nav-link rounded"
                        th:classappend="${#httpServletRequest.getRequestURI().equals('/admin') ? 'active bg-primary text-white' : ''}"
-                        th:href="@{/admin}">Admin</a>
+                       th:href="@{/admin}">Admin</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
@@ -50,7 +50,7 @@
             </ul>
         </div>
 
-        <div class="col-10 bg-light" style = "height:100vh">
+        <div class="col-10 bg-light" style="height:100vh">
 
             <h1>Admin panel</h1>
 
@@ -72,8 +72,9 @@
 
                     <div class="card-header">
                         <h5>All users</h5></div>
-                    <table class=" table table-striped">
-                        <tbody>
+                    <table class="table table-striped">
+                        <tbody id="inputPointUserList">
+
                         <tr>
                             <th>ID</th>
                             <th>First Name</th>
@@ -84,24 +85,8 @@
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
+                                                    <tr  th:each="u : ${allUsers}">
 
-                        <tr th:each="u : ${allUsers}">
-                            <td th:text="${u.id}">ID</td>
-                            <td th:text="${u.name}">Name</td>
-                            <td th:text="${u.surname}">Surname</td>
-                            <td th:text="${u.age}">Age</td>
-                            <td th:text="${u.username}">Username</td>
-                            <td><a th:each="role : ${u.roles}" th:text="${role}+ ' '"></a></td>
-                            <td>
-                                <button th:data-target="${'#editModal' + u.id}" type="button" class="btn btn-primary"
-                                        data-toggle="modal">Edit
-                                </button>
-                            </td>
-                            <td>
-                                <button th:data-target="${'#deleteModal' + u.id}" type="button" class="btn btn-danger"
-                                        data-toggle="modal">Delete
-                                </button>
-                            </td>
                             <div class="modalEdit">
                                 <div class="modal fade" th:id="${'editModal' + u.id}" tabindex="-1">
                                     <div class="modal-dialog">
@@ -111,7 +96,6 @@
                                                 <button type="button" class="btn-close" data-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
-
                                             <form th:action="@{admin/edit/{id}(id=${u.getId()})}" th:method="put">
                                                 <div class="row justify-content-center">
                                                     <div class="col-6 fw-bolder">
@@ -270,69 +254,88 @@
                             </div>
                         </tr>
                         </tbody>
-
                     </table>
+                        <div class="div modalEditFetch">
+
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                    <input type="text" class="form-control" id="recipient-name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="message-text" class="col-form-label">Message:</label>
+                                                    <textarea class="form-control" id="message-text"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Send message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                 </div>
                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="card-header">
-                            <h5>Add new user</h5></div>
+                    <div class="card-header">
+                        <h5>Add new user</h5></div>
                     <div class="row align-items-start">
                         <div class="col-4">
                         </div>
-                            <div class="col-4 align-self-center p-3">
-                                <form  th:method="POST" th:action="@{/admin/add}" th:object="${user}">
-                                    <div class="mb-10 text-center ">
-                                        <label for="first_name" class="h6 form-label">First name</label>
-                                        <input type="text" class="form-control" id="first_name" th:field="*{name}"
-                                               name="name">
-                                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error
-                                        </div>
+                        <div class="col-4 align-self-center p-3">
+                            <form id="testNewUserForm">
+                                <div class="mb-10 text-center ">
+                                    <label for="addFirstNameField" class="h6 form-label">First name</label>
+                                    <input type="text" class="form-control" id ="addFirstNameField">
+                                </div>
+
+                                <div class="mb-3 text-center">
+                                    <label for="addLastNameField" class="h6 form-label ">Last name</label>
+                                    <input type="text" class="form-control" id ="addLastNameField" >
+                                </div>
+
+                                <div class="mb-3 text-center">
+                                    <label for="addAgeField" class="h6 form-label">Age</label>
+                                    <input type="text" class="form-control" id = "addAgeField" >
+                                </div>
+
+                                <div class="mb-3 text-center">
+                                    <label for="addUsernameField" class="h6 form-label">Username</label>
+                                    <input type="text" class="form-control" id = "addUsernameField" >
+                                </div>
+
+                                <div class="mb-3 text-center">
+                                    <label for="addPasswordField" class="h6 form-label">Password</label>
+                                    <input type="text" class="form-control" id = "addPasswordField" >
+                                </div>
+
+                                <div class="mb-3 text-center">
+                                    <label for="addRolesField" class="h6 form-label">Roles</label>
+                                    <select class="form-select" name="roles" id = "addRolesField" >
+                                        <option value="ROLE_USER">User</option>
+                                        <option value='ROLE_ADMIN'>Admin</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="form-row text-center">
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-success" id="testAddUserButton">Add new user</button>
                                     </div>
-                                    <div class="mb-3 text-center">
-                                        <label for="last_name" class="h6 form-label ">Last name</label>
-                                        <input type="text" class="form-control" th:field="*{surname}"
-                                               id="last_name">
-                                        <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name
-                                            error
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 text-center">
-                                        <label for="age" class="h6 form-label">Age</label>
-                                        <input type="text" class="form-control" th:field="*{age}" id="age">
-                                        <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Name error</div>
-                                    </div>
-                                    <div class="mb-3 text-center">
-                                        <label for="username" class="h6 form-label">Username</label>
-                                        <input type="text" class="form-control" th:field="*{username}"
-                                               id="username">
-                                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name
-                                            error
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 text-center">
-                                        <label for="password" class="h6 form-label">Password</label>
-                                        <input type="text" class="form-control" th:field="*{password}"
-                                               id="password">
-                                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name
-                                            error
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 text-center">
-                                        <label for="roles" class="h6 form-label">Roles</label>
-                                        <select class="form-select" name="roles" id="roles">
-                                            <option th:each="role : ${allRoles}"
-                                                    th:value="${role.id}"
-                                                    th:text="${role.name.replace('ROLE_','')}"/>
-                                        </select>
-                                    </div>
-                                    <br>
-                                    <div class="form-row text-center">
-                                        <div class="col-12">
-                                            <button type="submit" class="btn btn-success ">Add new user</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -340,7 +343,87 @@
         </div>
     </div>
 </div>
+</div>
 
+
+
+<script>
+
+    const userList = document.getElementById("inputPointUserList");
+    const url = "http://localhost:8080/api/users"
+    let htmlUserList = ``;
+
+
+    // Get fetch part
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(user => {
+                htmlUserList += `<tr> <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.surname}</td>
+                            <td>${user.age}</td>
+                            <td>${user.username}</td>
+                            <td>${user.roles.map(e =>e.name.substring(5))} </td>
+                            <td>
+                                <a hrref ="@{/api/users/(${user.id})}" class="btn btn-primary">Edit</a>
+                            </td>
+                            <td>
+                                <button data-target="${'#deleteModal' + user.id}" type="button" class="btn btn-danger"
+                                        data-toggle="modal">Delete
+                                </button>
+                            </td>
+                             </tr>
+`;
+            });
+            userList.insertAdjacentHTML("beforeend", htmlUserList );
+        })
+
+
+    // Post fetch part
+
+    const butt = document.getElementById("testAddUserButton")
+    butt.onclick = function() {
+
+        let firstNameAdd = document.getElementById("addFirstNameField").value;
+        let lastnameAdd = document.getElementById("addLastNameField").value;
+        let ageAdd = document.getElementById("addAgeField").value;
+        let usernameAdd = document.getElementById("addUsernameField").value;
+        let passwordAdd = document.getElementById("addPasswordField").value;
+        let rolesAdd = document.getElementById("addRolesField").value;
+        let roleId;
+
+        switch (rolesAdd) {
+            case "ROLE_USER":
+                roleId = 1;
+                break;
+            case "ROLE_ADMIN":
+                roleId = 2;
+                break;}
+
+        fetch(url, {
+            method: "post",
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                "name": firstNameAdd,
+                "surname": lastnameAdd,
+                "age": ageAdd,
+                "username": usernameAdd,
+                "password": passwordAdd,
+                "roles": [{"id": roleId, "name": rolesAdd}]
+
+            })
+        })
+    }
+
+    // Edit fetch part
+
+
+
+
+</script>
+
+<script src = "main.js"></script>
 
 </body>
 </html>

@@ -19,22 +19,22 @@ public class User {
     private int id;
 
     @Column(name = "name")
-    @Size(min = 1, max = 50, message = "Invalid length")
+//    @Size(min = 1, max = 50, message = "Invalid length")
     private String name;
 
 
-    @Size(min = 1, max = 50, message = "Invalid length")
+//    @Size(min = 1, max = 50, message = "Invalid length")
     @Column(name = "surname")
     private String surname;
 
     @Column(name = "age")
     private int age;
 
-    @Size(min = 1, max = 100, message = "Invalid length")
+//    @Size(min = 1, max = 100, message = "Invalid length")
     @Column(name = "username")
     private String username;
 
-    @Size(min = 1, max = 100, message = "Invalid length")
+//    @Size(min = 1, max = 100, message = "Invalid length")
     @Column(name = "password")
     private String password;
 
