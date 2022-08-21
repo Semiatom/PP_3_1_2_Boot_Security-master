@@ -85,8 +85,7 @@
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
-                                                    <tr  th:each="u : ${allUsers}">
-
+                        <tr th:each="u : ${allUsers}">
                             <div class="modalEdit">
                                 <div class="modal fade" th:id="${'editModal' + u.id}" tabindex="-1">
                                     <div class="modal-dialog">
@@ -255,38 +254,6 @@
                         </tr>
                         </tbody>
                     </table>
-                        <div class="div modalEditFetch">
-
-
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="mb-3">
-                                                    <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                                    <input type="text" class="form-control" id="recipient-name">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="message-text" class="col-form-label">Message:</label>
-                                                    <textarea class="form-control" id="message-text"></textarea>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Send message</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
                 </div>
                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="card-header">
@@ -298,32 +265,32 @@
                             <form id="testNewUserForm">
                                 <div class="mb-10 text-center ">
                                     <label for="addFirstNameField" class="h6 form-label">First name</label>
-                                    <input type="text" class="form-control" id ="addFirstNameField">
+                                    <input type="text" class="form-control" id="addFirstNameField">
                                 </div>
 
                                 <div class="mb-3 text-center">
                                     <label for="addLastNameField" class="h6 form-label ">Last name</label>
-                                    <input type="text" class="form-control" id ="addLastNameField" >
+                                    <input type="text" class="form-control" id="addLastNameField">
                                 </div>
 
                                 <div class="mb-3 text-center">
                                     <label for="addAgeField" class="h6 form-label">Age</label>
-                                    <input type="text" class="form-control" id = "addAgeField" >
+                                    <input type="text" class="form-control" id="addAgeField">
                                 </div>
 
                                 <div class="mb-3 text-center">
                                     <label for="addUsernameField" class="h6 form-label">Username</label>
-                                    <input type="text" class="form-control" id = "addUsernameField" >
+                                    <input type="text" class="form-control" id="addUsernameField">
                                 </div>
 
                                 <div class="mb-3 text-center">
                                     <label for="addPasswordField" class="h6 form-label">Password</label>
-                                    <input type="text" class="form-control" id = "addPasswordField" >
+                                    <input type="text" class="form-control" id="addPasswordField">
                                 </div>
 
                                 <div class="mb-3 text-center">
                                     <label for="addRolesField" class="h6 form-label">Roles</label>
-                                    <select class="form-select" name="roles" id = "addRolesField" >
+                                    <select class="form-select" name="roles" id="addRolesField">
                                         <option value="ROLE_USER">User</option>
                                         <option value='ROLE_ADMIN'>Admin</option>
                                     </select>
@@ -331,7 +298,8 @@
                                 <br>
                                 <div class="form-row text-center">
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-success" id="testAddUserButton">Add new user</button>
+                                        <button type="button" class="btn btn-success" id="AddUserButton">Add new user
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -340,90 +308,115 @@
                     </div>
                 </div>
             </div>
+
+        <div class="modal fade" id="editModalFetch" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalFetchLabel">New message</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center fw-bolder">
+                        <form id = "editFetchModal">
+                            <div class="mb-3">
+                                <label for="editIdModal" class="col-form-label">Id</label>
+                                <input type="text" class="form-control" id="editIdModal" name ="id" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editNameModal" class="col-form-label">First name</label>
+                                <input type="text" class="form-control" id="editNameModal" name = "firstname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editSurnameModal" class="col-form-label">Last name</label>
+                                <input type="text" class="form-control" id="editSurnameModal" name = "lastname" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="editAgeModal" class="col-form-label">Age</label>
+                                <input type="text" class="form-control" id="editAgeModal" name = "age">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editUsernameModal" class="col-form-label">Username</label>
+                                <input type="text" class="form-control" id="editUsernameModal" name = "username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editPasswordModal" class="col-form-label">Password</label>
+                                <input type="text" class="form-control" id="editPasswordModal" name = "password">
+                            </div>
+                            <div>
+                                <label for="editRolesModal" class="h6 form-label">Roles</label>
+                                <select class="form-select" id="editRolesModal" name = "role">
+                                    <option value="ROLE_USER">User</option>
+                                    <option value='ROLE_ADMIN'>Admin</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id = "editSubmitModal">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteModalFetch" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalFetchLabel">New message</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center fw-bolder">
+                        <form id = "deleteFetchModal">
+                            <div class="mb-3">
+                                <label for="deleteIdModal" class="col-form-label">Id</label>
+                                <input type="text" class="form-control" id="deleteIdModal" name ="id" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deleteNameModal" class="col-form-label">First name</label>
+                                <input type="text" class="form-control" id="deleteNameModal" name = "firstname" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deleteSurnameModal" class="col-form-label">Last name</label>
+                                <input type="text" class="form-control" id="deleteSurnameModal" name = "lastname" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deleteAgeModal" class="col-form-label">Age</label>
+                                <input type="text" class="form-control" id="deleteAgeModal" name = "age" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deleteUsernameModal" class="col-form-label">Username</label>
+                                <input type="text" class="form-control" id="deleteUsernameModal" name = "username" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deletePasswordModal" class="col-form-label">Password</label>
+                                <input type="text" class="form-control" id="deletePasswordModal" name = "password" disabled>
+                            </div>
+                            <div>
+                                <label for="deleteRolesModal" class="h6 form-label">Roles</label>
+                                <select class="form-select" id="deleteRolesModal" name = "role" disabled>
+                                    <option value="ROLE_USER">User</option>
+                                    <option value='ROLE_ADMIN'>Admin</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" id = "deleteSubmitModal">Delete</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-</div>
-
-
-
-<script>
-
-    const userList = document.getElementById("inputPointUserList");
-    const url = "http://localhost:8080/api/users"
-    let htmlUserList = ``;
-
-
-    // Get fetch part
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(user => {
-                htmlUserList += `<tr> <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.surname}</td>
-                            <td>${user.age}</td>
-                            <td>${user.username}</td>
-                            <td>${user.roles.map(e =>e.name.substring(5))} </td>
-                            <td>
-                                <a hrref ="@{/api/users/(${user.id})}" class="btn btn-primary">Edit</a>
-                            </td>
-                            <td>
-                                <button data-target="${'#deleteModal' + user.id}" type="button" class="btn btn-danger"
-                                        data-toggle="modal">Delete
-                                </button>
-                            </td>
-                             </tr>
-`;
-            });
-            userList.insertAdjacentHTML("beforeend", htmlUserList );
-        })
-
-
-    // Post fetch part
-
-    const butt = document.getElementById("testAddUserButton")
-    butt.onclick = function() {
-
-        let firstNameAdd = document.getElementById("addFirstNameField").value;
-        let lastnameAdd = document.getElementById("addLastNameField").value;
-        let ageAdd = document.getElementById("addAgeField").value;
-        let usernameAdd = document.getElementById("addUsernameField").value;
-        let passwordAdd = document.getElementById("addPasswordField").value;
-        let rolesAdd = document.getElementById("addRolesField").value;
-        let roleId;
-
-        switch (rolesAdd) {
-            case "ROLE_USER":
-                roleId = 1;
-                break;
-            case "ROLE_ADMIN":
-                roleId = 2;
-                break;}
-
-        fetch(url, {
-            method: "post",
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                "name": firstNameAdd,
-                "surname": lastnameAdd,
-                "age": ageAdd,
-                "username": usernameAdd,
-                "password": passwordAdd,
-                "roles": [{"id": roleId, "name": rolesAdd}]
-
-            })
-        })
-    }
-
-    // Edit fetch part
 
 
 
 
-</script>
-
-<script src = "main.js"></script>
+<script src="main.js"></script>
 
 </body>
 </html>

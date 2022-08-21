@@ -1,54 +1,178 @@
+const userList = document.getElementById("inputPointUserList");
+const url = "http://localhost:8080/api/users"
+let htmlUserList = ``;
 
-$(document).ready(function(){
-        $('.table .editBtn'). click(function (evt) {
+let editId = document.getElementById("editIdModal");
+let editName = document.getElementById("editNameModal");
+let editSurname = document.getElementById("editSurnameModal");
+let editAge = document.getElementById("editAgeModal");
+let editUsername = document.getElementById("editUsernameModal");
+let editPassword = document.getElementById("editPasswordModal");
+let editRole = document.getElementById("editRolesModal");
 
-            evt.preventDefault();
-             var href= $(this).attr('href');
-            $.get(href,function(restUser){
-                fetch(restUser)
-                    .then(response => response.json())
-                    .then()
-                $('#editId').val(user.id)
-                $('#editFirstName').val(user.name)
-                $('#editLasName').val(user.surname)
-                $('#editAge').val(user.age)
-                $('#editUsername').val(user.username)
-            });
+let deleteId = document.getElementById("deleteIdModal");
+let deleteName = document.getElementById("deleteNameModal");
+let deleteSurname = document.getElementById("deleteSurnameModal");
+let deleteAge = document.getElementById("deleteAgeModal");
+let deleteUsername = document.getElementById("deleteUsernameModal");
+let deletePassword = document.getElementById("deletePasswordModal");
+let deleteRole = document.getElementById("deleteRolesModal");
 
-           $('.myFormUpdate #editModal').modal();
+// Get user Fetch
+
+async function getUser(id) {
+    let response = await fetch(url + '/' + id)
+    return response.json();
+}
+tableUsersFetch(); // <---------- Launch of UserTable
+
+// -----------------------Get fetch part---------------------------------
+
+
+     async function tableUsersFetch() {
+         await fetch(url)
+             .then(response => response.json())
+             .then(data => {
+                 data.forEach(user => {
+                     htmlUserList += `<tr> 
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.surname}</td>
+                            <td>${user.age}</td>
+                            <td>${user.username}</td>
+                            <td>${user.roles.map(e => e.name.substring(5))} </td>
+                            <td>
+                                <button  type="button" class="btn btn-primary" id = "edit-user" data-id = ${user.id}>Edit</button>
+                            </td>
+                            <td>
+                                <button  type="button" class="btn btn-danger" id = "delete-user" data-id = ${user.id}  >Delete</button>
+                            </td>
+                            </tr>`;
+                 });
+                 userList.insertAdjacentHTML("beforeend", htmlUserList);
+
+             })
+     }
+
+
+
+
+// -----------------------------------------Post fetch part-----------------------------------
+
+    const butt = document.getElementById("AddUserButton")
+    butt.onclick = function addUserFetch () {
+
+        let firstNameAdd = document.getElementById("addFirstNameField").value;
+        let lastnameAdd = document.getElementById("addLastNameField").value;
+        let ageAdd = document.getElementById("addAgeField").value;
+        let usernameAdd = document.getElementById("addUsernameField").value;
+        let passwordAdd = document.getElementById("addPasswordField").value;
+        let rolesAdd = document.getElementById("addRolesField").value;
+        let roleIdAdd;
+
+        switch (rolesAdd) {
+            case "ROLE_USER":
+                roleIdAdd = 1;
+                break;
+            case "ROLE_ADMIN":
+                roleIdAdd = 2;
+                break;
+        }
+        fetch(url, {
+            method: "post",
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                "name": firstNameAdd,
+                "surname": lastnameAdd,
+                "age": ageAdd,
+                "username": usernameAdd,
+                "password": passwordAdd,
+                "roles": [{"id": roleIdAdd, "name": rolesAdd}]
+
+            })
+        })
+        window.location.replace("http://localhost:8080/admin");
+
+}
+
+
+// ----------------------------Edit fetch part---------------------------
+
+userList.addEventListener('click',(e) => {
+    e.preventDefault();
+    let editButtonIsPressed = e.target.id == 'edit-user';
+    let deleteButtonIsPressed = (e.target.id == 'delete-user');
+    let id = parseInt(e.target.dataset.id)
+    let user = getUser(id)
+
+    user.then(data => {
+        editId.value = data.id;
+        editName.value = data.name;
+        editSurname.value = data.surname;
+        editAge.value = data.age;
+        editUsername.value = data.username;
+        editPassword.value = null;
+        editRole.value = data.roles[0].name;
+    })
+
+    if (editButtonIsPressed) {
+        $('#editModalFetch').modal('show');
+        document.getElementById('editSubmitModal').addEventListener('click', () =>{
+
+            let editRoleId = null;
+
+            switch (editRole.value) {
+                case "ROLE_USER":
+                    editRoleId = 1;
+                    break;
+                case "ROLE_ADMIN":
+                    editRoleId = 2;
+                    break;
+            }
+            fetch(url, {
+                method: "PUT",
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    "id": editId.value,
+                    "name": editName.value,
+                    "surname": editSurname.value,
+                    "age": editAge.value,
+                    "username": editUsername.value,
+                    "password": editPassword.value,
+                    "roles": [{"id": editRoleId, "name": editRole.value}]
+                })
+            })
+            tableUsersFetch();
+            window.location.replace("http://localhost:8080/admin");
 
         });
-
-    $('.table .deleteBtn'). click(function (evt) {
-        evt.preventDefault();
-        $('.myFormDelete #deleteModal').modal();
-
-        var href= $(this).attr('href');
-        $.get(href,function(user){
-            $('#deleteId').val(user.id)
-            $('#deleteFirstName').val(user.name)
-            $('#deleteLasName').val(user.surname)
-            $('#deleteAge').val(user.age)
-            $('#deleteUsername').val(user.username)
-        });
-    });
+    }
 
 
-});
+// ------------------DeleteFetchPart-------------------------------
+    if (deleteButtonIsPressed) {
 
 
-// $('.table .editBtn'). click(function (evt) {
-//
-//     evt.preventDefault();
-//     var href= $(this).attr('href');
-//     $.get(href,function(user){
-//         $('#editId').val(user.id)
-//         $('#editFirstName').val(user.name)
-//         $('#editLasName').val(user.surname)
-//         $('#editAge').val(user.age)
-//         $('#editUsername').val(user.username)
-//     });
-//
-//     $('.myFormUpdate #editModal').modal();
-//
-// });
+        user.then(data => {
+            deleteId.value = data.id;
+            deleteName.value = data.name;
+            deleteSurname.value = data.surname;
+            deleteAge.value = data.age;
+            deleteUsername.value = data.username;
+            deletePassword.value = null;
+            deleteRole.value = data.roles[0].name;
+        })
+
+
+        $('#deleteModalFetch').modal('show');
+        document.getElementById('deleteSubmitModal').addEventListener('click', () => {
+
+            fetch(`${url}/${id}`, {method:"delete"} )
+            .then(res => res.json())
+
+            window.location.replace("http://localhost:8080/admin");
+        })
+    }
+
+
+})

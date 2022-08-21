@@ -64,7 +64,8 @@ public class AdminRestController {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userService.saveUser(user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
