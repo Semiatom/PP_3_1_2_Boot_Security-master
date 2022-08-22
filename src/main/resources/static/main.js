@@ -49,7 +49,8 @@ tableUsersFetch(); // <---------- Launch of UserTable
                             </td>
                             </tr>`;
                  });
-                 userList.insertAdjacentHTML("beforeend", htmlUserList);
+                 // userList.insertAdjacentHTML("beforeend", htmlUserList);
+                 userList.innerHTML  = htmlUserList
 
              })
      }
@@ -60,7 +61,7 @@ tableUsersFetch(); // <---------- Launch of UserTable
 // -----------------------------------------Post fetch part-----------------------------------
 
     const butt = document.getElementById("AddUserButton")
-    butt.onclick = function addUserFetch () {
+    butt.onclick = async function addUserFetch () {
 
         let firstNameAdd = document.getElementById("addFirstNameField").value;
         let lastnameAdd = document.getElementById("addLastNameField").value;
@@ -78,7 +79,7 @@ tableUsersFetch(); // <---------- Launch of UserTable
                 roleIdAdd = 2;
                 break;
         }
-        fetch(url, {
+       await fetch(url, {
             method: "post",
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
@@ -91,6 +92,11 @@ tableUsersFetch(); // <---------- Launch of UserTable
 
             })
         })
+
+
+        htmlUserList = "";
+        userList.innerHTML = "";
+        tableUsersFetch();
         window.location.replace("http://localhost:8080/admin");
 
 }
@@ -129,7 +135,8 @@ userList.addEventListener('click',(e) => {
                     editRoleId = 2;
                     break;
             }
-            fetch(url, {
+           async function fetchPut(){
+           await fetch(url, {
                 method: "PUT",
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({
@@ -142,11 +149,15 @@ userList.addEventListener('click',(e) => {
                     "roles": [{"id": editRoleId, "name": editRole.value}]
                 })
             })
-            tableUsersFetch();
-            window.location.replace("http://localhost:8080/admin");
+               htmlUserList = ""
+               userList.innerHTML = ""
+               tableUsersFetch()
+            }
+            fetchPut();
+            $('#editModalFetch').modal('hide');
 
         });
-    }
+        }
 
 
 // ------------------DeleteFetchPart-------------------------------
@@ -169,7 +180,6 @@ userList.addEventListener('click',(e) => {
 
             fetch(`${url}/${id}`, {method:"delete"} )
             .then(res => res.json())
-
             window.location.replace("http://localhost:8080/admin");
         })
     }
